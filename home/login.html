@@ -1,12 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>登录/注册</title>
+
+    <!-- 导入 LayUI 的样式 -->
+    <link rel="stylesheet" href="/assets/lib/layui/css/layui.css" />
+    <!-- 导入自己的样式表 -->
+    <link rel="stylesheet" href="/assets/css/login.css" />
     
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <!-- 头部的 Logo 区域 -->
+    <div class="layui-main logo">
+        博客后台
+    </div>
+
+    <!-- 登录注册区域 -->
+    <div class="loginAndRegBox">
+        <div class="title-box " style="font-family:ZoomlaGuoqing-A070; font-weight:15; font-size:24px;">面朝大海，春暖花开</div>
+        <!-- 登录的div -->
+        <div class="login-box">
+            <!-- 登录的表单 -->
+            <form class="layui-form" id="form_login">
+                <!-- 用户名 -->
+                <div class="layui-form-item">
+                    <i class="layui-icon layui-icon-username"></i>
+                    <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input" />
+                </div>
+                <!-- 密码 -->
+                <div class="layui-form-item">
+                    <i class="layui-icon layui-icon-password"></i>
+                    <input type="password" name="password" required lay-verify="required|pwd" placeholder="请输入密码" autocomplete="off" class="layui-input" />
+                </div>
+                <!-- 登录按钮 -->
+                <div class="layui-form-item">
+                    <!-- 注意：表单提交按钮和普通按钮的区别，就是 lay-submit 属性 -->
+                    <button class="layui-btn layui-btn-fluid layui-btn-normal" lay-submit style="font-family:ZoomlaGuoqing-A070; font-weight:500; font-size:16px;">登录</button>
+                </div>
+                <div class="layui-form-item links">
+                    <a href="javascript:;" id="link_reg" style="font-family:ZoomlaGuoqing-A070; font-weight:500; font-size:12px;">注册</a>
+                </div>
+            </form>
+        </div>
+        <!-- 注册的div -->
+        <div class="reg-box">
+            <!-- 注册的表单 -->
+            <form class="layui-form" id="form_reg">
+                <!-- 用户名 -->
+                <div class="layui-form-item">
+                    <i class="layui-icon layui-icon-username"></i>
+                    <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input" />
+                </div>
+                <!-- 密码 -->
+                <div class="layui-form-item">
+                    <i class="layui-icon layui-icon-password"></i>
+                    <input type="password" name="password" required lay-verify="required|pwd" placeholder="请输入密码" autocomplete="off" class="layui-input" />
+                </div>
+                <!-- 密码确认框 -->
+                <div class="layui-form-item">
+                    <i class="layui-icon layui-icon-password"></i>
+                    <input type="password" name="repassword" required lay-verify="required|pwd|repwd" placeholder="再次确认密码" autocomplete="off" class="layui-input" />
+                </div>
+                <!-- 注册按钮 -->
+                <div class="layui-form-item">
+                    <!-- 注意：表单提交按钮和普通按钮的区别，就是 lay-submit 属性 -->
+                    <button class="layui-btn layui-btn-fluid layui-btn-normal" lay-submit>注册</button>
+                </div>
+                <div class="layui-form-item links">
+                    <a href="javascript:;" id="link_login">登录</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- 背景的js -->
+    <script>
+        window.requestAnimationFrame = (function(){
+            return window.requestAnimationFrame ||
+                   window.webkitRequestAnimationFrame ||
+                   window.mozRequestAnimationFrame ||
+                   function( callback ){
+                        window.setTimeout( callback, 1000/2 );
+                   };
+        })();
+        var myCanvas = document.getElementById("canvas");
+        var ctx = myCanvas.getContext("2d");//getContext 设置画笔
+        var num;
+        var w,h;
+        var duixiang = [];
+        var move = {};
+        function widthheight(){
+            w = myCanvas.width = window.innerWidth;
+            h = myCanvas.height = window.innerHeight;
+            num= Math.floor(w*h*0.00028);//点的数量。根据屏幕大小确定
+            for(var i = 0;i < num;i++){
+                duixiang[i] = {
+                    x:Math.random()*w,
+                    y:Math.random()*h,
+                    cX:Math.random()*0.6-0.3,
+                    cY:Math.random()*0.6-0.3,
+                    R:Math.floor(Math.random()*5)+2,
+                    //CC:Math.floor(Math.random()*3)+2,
+                    r: Math.floor(Math.random() * 254),   
+                    g: Math.floor(Math.random() * 254),  
+                    b:Math.floor(Math.random() * 254)   
+                } 
+               // console.log(duixiang[i])
+                Cricle(duixiang[i].x,duixiang[i].y,duixiang[i].R,duixiang[i].r,duixiang[i].g,duixiang[i].b);
+                 //Cricle(duixiang[i].x,duixiang[i].y,duixiang[i].R,duixiang[i].CC);
+            }
+        };widthheight();//获取浏览器的等宽度等高
+    
+        function Cricle(x,y,R,r,g,b){
+            ctx.save();//保存路径
+           if(Math.random()>0.991) {ctx.globalAlpha= 0.9;}//ctx.fillStyle = "#CCC";}//填充的背景颜色
+            else { ctx.globalAlpha=0.47;}
+             
+            ctx.fillStyle = "rgb("+ r +","+ g +","+ b +")";
+            ctx.beginPath();//开始绘画
+            ctx.arc(x,y,R,Math.PI*2,0);//绘画圆 x y 半径（大小） 角度  一个PI 是180 * 2 = 360    真假 0/1 true/false
+            ctx.closePath();//结束绘画
+            ctx.fill();//填充背景颜色
+            ctx.restore();//回复路径
+        };Cricle();
+    
+    
+        !function draw(){
+            ctx.clearRect(0,0,w,h)//先清除画布上的点
+            for(var i = 0;i < num;i++){
+                duixiang[i].x += duixiang[i].cX;
+                duixiang[i].y += duixiang[i].cY;
+                if(duixiang[i].x>w || duixiang[i].x<0){
+                    duixiang[i].cX = -duixiang[i].cX;
+                }
+                if(duixiang[i].y>h || duixiang[i].y<0){
+                    duixiang[i].cY = -duixiang[i].cY;
+                }
+                Cricle(duixiang[i].x,duixiang[i].y,duixiang[i].R,duixiang[i].r,duixiang[i].g,duixiang[i].b);
+                //勾股定理判断两点是否连线
+                for(var j = i + 1;j < num;j++){
+                    if( (duixiang[i].x-duixiang[j].x)*(duixiang[i].x-duixiang[j].x)+(duixiang[i].y-duixiang[j].y)*(duixiang[i].y-duixiang[j].y) <= 55*55 ){
+                        line(duixiang[i].x,duixiang[i].y,duixiang[j].x,duixiang[j].y,0,i,j)
+                    }
+                    if(move.x){
+                        if( (duixiang[i].x-move.x)*(duixiang[i].x-move.x)+(duixiang[i].y-move.y)*(duixiang[i].y-move.y) <= 100*100 ){
+                            line(duixiang[i].x,duixiang[i].y,move.x,move.y,1,i,1)
+                        }
+                    }
+                }
+            }
+            window.requestAnimationFrame(draw)
+        }();
+    
+        //绘制线条
+        function line(x1,y1,x2,y2,flag,i,j){
+            
+            if (flag){var color = ctx.createLinearGradient(x1,y1,x2,y2);
+                        ctx.globalAlpha=0.5;
+                        color.addColorStop(0,"rgb("+ duixiang[i].r +","+ duixiang[i].g +","+ duixiang[i].b +")");
+                        color.addColorStop(0.8,"#019ee5");
+                    }
+                    else
+                    {
+                    
+                    var color = ctx.createLinearGradient(x1,y1,x2,y2);
+                        ctx.globalAlpha=0.9;
+                        color.addColorStop(0,"rgb("+ duixiang[i].r +","+ duixiang[i].g +","+ duixiang[i].b +")");
+                        color.addColorStop(1,"rgb("+ duixiang[j].r +","+ duixiang[j].g +","+ duixiang[j].b +")");
+                    }
+            ctx.save();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(x1,y1);
+            ctx.lineTo(x2,y2);
+            ctx.stroke();
+            //ctx.restore();
+        }
+    
+    
+        //document.onmousemove = function(e){
+         //   move.x = e.clientX;
+          //  move.y = e.clientY;
+        //}
+        //console.log(move)//去掉注释 ，可以与背景互动
+    
+        window.onresize = function(){
+            location.reload();
+        }
+    </script>
+    <!-- 导入 Layui 的JS文件 -->
+    <script src="/assets/lib/layui/layui.all.js"></script>
+    <!-- 导入 JQuery -->
+    <script src="/assets/lib/jquery.js"></script>
+    <!-- 导入自己封装的 baseAPI.js -->
+    <script src="/assets/js/baseAPI.js"></script>
+    <!-- 导入自己的 JavaScript 脚本 -->
+    <script src="/assets/js/login.js"></script>
+
 </body>
+
 </html>

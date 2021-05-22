@@ -1,0 +1,106 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+@font-face{font-family:'ZoomlaGuoqing-A070'; /*逐浪喜迎国庆方盾体*/
+    src: url('https://code.z01.com/font/ZoomlaGuoqing-A070.eot?#iefix'); /* IE9 */
+    src: url('https://code.z01.com/font/ZoomlaGuoqing-A070.eot?#iefix') format("embedded-opentype"), /* IE6-IE8 */
+    url('https://code.z01.com/font/ZoomlaGuoqing-A070.woff') format("woff"), /* chrome、firefox */
+    url('https://code.z01.com/font/ZoomlaGuoqing-A070.ttf') format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+    url('https://code.z01.com/font/ZoomlaGuoqing-A070.svg#ZoomlaGuoqing-A070') format("svg"); /* iOS 4.1- */
+    font-style: normal; font-weight: normal;}
+#canvas{
+     position: fixed;
+             background: rgb(202, 202, 202);
+     overflow: auto;
+     z-index: -1;
+}
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    /* background: url('/assets/images/login_bg.jpg') no-repeat center; */
+    /* background-size: cover; */
+}
+
+.loginAndRegBox {
+    border-radius: 5%;
+    width: 400px;
+    height: 310px;
+    background-color: rgb(240, 240, 240);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.title-box {
+    color: rgb(212, 86, 160);
+    font-size: 24px;
+    height: 60px;
+    letter-spacing:3px;/*字间距*/
+    font-weight: bolder;/*字粗*/
+    line-height: 60px;
+    text-align: center;
+    overflow: hidden;
+    margin-top: 5px;
+    /* margin-bottom: 10px; */
+    margin-right: -3px;
+    /* margin-left: 50%; */
+    /* transform: translate(75%); */
+    /* background: url('/assets/images/login_title.png') no-repeat center; */
+}
+
+.reg-box {
+    display: none;
+}
+
+.layui-form {
+    padding: 0 30px;
+}
+
+.links {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.links a {
+    font-size: 16px;
+    letter-spacing:12px;/*字间距*/
+    margin-right: -12px;
+
+}
+
+.layui-form-item {
+    position: relative;
+}
+
+.layui-icon {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.layui-input {
+    padding-left: 32px;
+}
+.layui-btn-normal {
+    background-color: rgb(224, 163, 199);
+    /* text-align: center; */
+    text-indent: 48px;/*首行缩进*/
+    letter-spacing:48px;/*字间距*/
+    /* margin-right: -48px; */
+    /* padding-right: -48px; */
+}
+.logo{
+    font-family:ZoomlaGuoqing-A070;
+    font-weight: normal;
+    color: rgb(240, 240, 240);
+    font-size: 48px;
+    top: 88px;
+    text-indent: 180px;/*首行缩进*/
+    letter-spacing:24px;/*字间距*/
+
+}
